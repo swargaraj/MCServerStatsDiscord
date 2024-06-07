@@ -1,3 +1,11 @@
+# Node modules directory
 node_modules/
+
+.git/
+
+.vscode/
+
+logs/
+*.log
 
 config.json
