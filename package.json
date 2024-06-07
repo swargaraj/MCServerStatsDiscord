@@ -1,0 +1,18 @@
+{
+  "name": "mc-server-status-discord",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.15.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.4.0"
+  }
+}
