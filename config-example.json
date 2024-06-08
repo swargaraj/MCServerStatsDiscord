@@ -1,5 +1,6 @@
 {
 	"CLIENT_ID": "",
 	"TOKEN": "",
-	"MONGO_DB_URI": ""
+	"MONGO_DB_URI": "",
+	"LANG": "en"
 }

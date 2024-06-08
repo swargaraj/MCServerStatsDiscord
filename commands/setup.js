@@ -4,7 +4,10 @@ const {
   PermissionsBitField,
   SlashCommandBuilder,
 } = require("discord.js");
+
 const logger = require("../utils/logger");
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Represents a ping command.
@@ -15,6 +18,19 @@ module.exports = {
     .setDescription("Sets up the bot."),
   cooldown: 5,
   async execute(interaction) {
+    const langPath = path.resolve(
+      __dirname,
+      `../lang/${interaction.locale}.js`
+    );
+
+    let TEXTS;
+
+    if (fs.existsSync(langPath)) {
+      TEXTS = require(`../lang/${interaction.locale}.js`);
+    } else {
+      TEXTS = require(`../lang/en-US.js`);
+    }
+
     // Check if the user is an admin
     if (
       !interaction.member.permissions.has(
@@ -22,21 +38,36 @@ module.exports = {
       )
     ) {
       await interaction.reply({
-        content: "You need to be an admin to run this command.",
+        content: TEXTS.NOT_AN_ADMIN,
         ephemeral: true,
       });
       logger.info(
-        `@${interaction.user.username} tried the /setup command being a non-admin in ${interaction.guild.name}.`
+        `(${interaction.guild.name}) @${interaction.user.username} tried to add guild to tracking while not being an admin.`
       );
     } else {
-      await interaction.reply({
-        // Logic here
-        content: "Server setup complete.",
-      });
+      // Check if bot as MANAGE_CHANNELS permission
+      if (
+        !interaction.guild.members.me.permissions.has(
+          PermissionsBitField.Flags.ManageChannels
+        )
+      ) {
+        await interaction.reply({
+          content: TEXTS.NO_PERMISSION,
+          ephemeral: true,
+        });
+        logger.info(
+          `(${interaction.guild.name}) @${interaction.user.username} tried to add guild to tracking but the bot does not have the Manage Channel permission.`
+        );
+        return;
+      }
 
       logger.info(
-        `@${interaction.user.username} used the /setup command in ${interaction.guild.name}.`
+        `(${interaction.guild.name}) @${interaction.user.username} added guild to tracking.`
       );
+      await interaction.reply({
+        content: TEXTS.SERVER_TRACKED,
+        ephemeral: true,
+      });
     }
   },
 };
