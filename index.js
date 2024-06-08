@@ -26,7 +26,6 @@ const {
 const logger = require("./utils/logger");
 const { RateLimiter } = require("discord.js-rate-limiter");
 const mongoose = require("mongoose");
-const registerCommands = require("./utils/registerCommands");
 const fs = require("fs");
 
 const { TOKEN, MONGO_DB_URI, CLIENT_ID } = require("./config.json");
@@ -71,6 +70,7 @@ client.once(Events.ClientReady, (readyClient) => {
   });
 });
 
+// Register commands.
 const commands = new Collection();
 
 const commandFiles = fs
@@ -103,6 +103,8 @@ const rest = new REST({ version: "10" }).setToken(TOKEN);
 
 // Handle interactions.
 client.on(Events.InteractionCreate, async (interaction) => {
+  // TODO: Add rate limiter
+
   if (!interaction.isCommand()) return;
 
   const command = commands.get(interaction.commandName);
