@@ -1,6 +1,8 @@
 const { PermissionsBitField, SlashCommandBuilder } = require("discord.js");
 
 const logger = require("../utils/logger");
+const addServer = require("../handlers/addServer.js");
+
 const fs = require("fs");
 const path = require("path");
 
@@ -74,13 +76,31 @@ module.exports = {
         return;
       }
 
-      logger.info(
-        `(${interaction.guild.name}) @${interaction.user.username} added guild to tracking.`
-      );
-      await interaction.reply({
-        content: TEXTS.SERVER_TRACKED,
-        ephemeral: true,
-      });
+      // Add server to database
+      try {
+
+        // TODO: Use replyDefer instead of arbitary reply
+
+        await interaction.reply({
+          content: TEXTS.SERVER_TRACKED,
+          ephemeral: true,
+        });
+
+        await addServer(interaction);
+
+        logger.info(
+          `(${interaction.guild.name}) @${interaction.user.username} added guild to tracking.`
+        );
+      } catch (error) {
+        logger.error(
+          `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to add the guild to tracking: ${error.message}`
+        );
+
+        await interaction.reply({
+          content: TEXTS.ERROR_ADDING_SERVER,
+          ephemeral: true,
+        });
+      }
     }
   },
 };

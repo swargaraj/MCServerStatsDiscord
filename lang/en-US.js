@@ -1,6 +1,9 @@
 const TEXTS = {
   SERVER_TRACKED:
     "Server added successfully. The bot will now track the server status.",
+  ERROR_ADDING_SERVER: "An error occurred while adding the server.",
+  SERVER_REMOVED: "Server removed successfully.",
+  ERROR_REMOVING_SERVER: "An error occurred while removing the server.",
   NO_SERVER_TRACKED: "Please setup a server before pinging",
   NOT_AN_ADMIN: "You need to be an admin to run this command.",
   NO_PERMISSION:
