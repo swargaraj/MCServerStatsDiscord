@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
+const statusServer = require("../handlers/statusServer");
 
 const logger = require("../utils/logger");
 const fs = require("fs");
@@ -25,10 +26,16 @@ module.exports = {
 
     // TODO: Check if guild is being tracked. If yes, use that ip:port else return NO_SERVER_TRACKED
 
-    logger.info(
-      `(${interaction.guild.name}) @${interaction.user.username} tried /status`
-    );
-
-    await interaction.reply(`Server Information`);
+    try {
+      await interaction.deferReply();
+      await statusServer(interaction);
+    } catch (error) {
+      await interaction.editReply({
+        content: TEXTS.SOMETHING_WENT_WRONG,
+      });
+      logger.error(
+        `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to ping guild's server: ${error}`
+      );
+    }
   },
 };
