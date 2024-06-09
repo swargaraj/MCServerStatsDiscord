@@ -1,3 +1,5 @@
+const logger = require("./utils/logger");
+
 // Check if the config.json file exists
 try {
   require("./config.json");
@@ -23,12 +25,14 @@ const {
   Routes,
 } = require("discord.js");
 
-const logger = require("./utils/logger");
 const { RateLimiter } = require("discord.js-rate-limiter");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const cron = require("node-cron");
 
 const { TOKEN, MONGO_DB_URI, CLIENT_ID } = require("./config.json");
+
+const updateChannel = require("./utils/updateChannel");
 
 if (!TOKEN || !CLIENT_ID) {
   logger.error("Bot token or Client ID is not provided in config.json");
@@ -107,6 +111,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   if (!interaction.isCommand()) return;
 
+  // Handle Commands
   const command = commands.get(interaction.commandName);
 
   if (!command) {
@@ -129,3 +134,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 });
 
 client.login(TOKEN);
+
+// Run updateChannel every 5 minutes.
+cron.schedule("*/5 * * * *", () => {
+  updateChannel(client);
+});

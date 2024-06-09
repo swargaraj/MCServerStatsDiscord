@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 
 const logger = require("../utils/logger");
 const removeServer = require("../handlers/removeServer");
@@ -25,6 +25,20 @@ module.exports = {
       TEXTS = require(`../lang/en-US.js`);
     }
 
+    if (
+      !interaction.member.permissions.has(
+        PermissionsBitField.Flags.Administrator
+      )
+    ) {
+      await interaction.reply({
+        content: TEXTS.NOT_AN_ADMIN,
+        ephemeral: true,
+      });
+      logger.info(
+        `(${interaction.guild.name}) @${interaction.user.username} tried to remove guild from tracking while not being an admin.`
+      );
+      return;
+    }
     try {
       await interaction.deferReply({
         content: TEXTS.SERVER_REMOVING,
