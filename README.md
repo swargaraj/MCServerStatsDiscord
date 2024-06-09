@@ -50,7 +50,7 @@ Make sure the bot has the following permissions:
 - ```manage_channels```: To create and remove voice channels for displaying server info.
 
 ## Feedback and Support
-We highly value your feedback to improve our service. Please report any issues on the [GitHub Issues page](https://github.com/swargaraj/MCServerStatsDiscord/issues) or join my [Discord Server](discord.gg/jhwvHUzKWt) for fast assistance.
+We highly value your feedback to improve our service. Please report any issues on the [GitHub Issues page](https://github.com/swargaraj/MCServerStatsDiscord/issues) or join my [Discord Server](https://discord.gg/jhwvHUzKWt) for fast assistance.
 
 ## Contributing
 We welcome contributions! If you have suggestions for new features or improvements, feel free to open an issue or submit a pull request.
