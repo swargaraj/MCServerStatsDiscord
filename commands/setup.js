@@ -1,7 +1,7 @@
 const { PermissionsBitField, SlashCommandBuilder } = require("discord.js");
 
 const logger = require("../utils/logger");
-const addServer = require("../handlers/addServer.js");
+const addServer = require("../handlers/addServer");
 
 const fs = require("fs");
 const path = require("path");

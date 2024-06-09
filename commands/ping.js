@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
+const pingServer = require("../handlers/pingServer");
 
 const logger = require("../utils/logger");
 const fs = require("fs");
@@ -41,14 +42,16 @@ module.exports = {
       TEXTS = require(`../lang/en-US.js`);
     }
 
-    const ip = interaction.options.getString("ip");
-    const port = interaction.options.getInteger("port");
-    const bedrock = interaction.options.getBoolean("bedrock");
-
-    logger.info(
-      `(${interaction.guild.name}) @${interaction.user.username} pinged ${ip}:${port}`
-    );
-
-    await interaction.reply(`Pinging ${ip}:${port}`);
+    try {
+      await interaction.deferReply();
+      await pingServer(interaction);
+    } catch (error) {
+      await interaction.editReply({
+        content: TEXTS.SOMETHING_WENT_WRONG,
+      });
+      logger.error(
+        `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to ping a server: ${error}`
+      );
+    }
   },
 };

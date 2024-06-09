@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 const logger = require("../utils/logger");
-const removeServer = require("../handlers/removeServer.js");
+const removeServer = require("../handlers/removeServer");
 
 const fs = require("fs");
 const path = require("path");

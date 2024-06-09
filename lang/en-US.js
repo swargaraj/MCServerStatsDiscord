@@ -10,6 +10,7 @@ const TEXTS = {
   NOT_AN_ADMIN: "You need to be an admin to run this command.",
   NO_PERMISSION:
     "Bot does not have the Manage Channel permission. Please grant it to the bot.",
+  SOMETHING_WENT_WRONG: "Something went wrong. Please try again later.",
 };
 
 module.exports = TEXTS;
