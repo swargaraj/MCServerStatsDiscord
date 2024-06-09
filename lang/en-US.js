@@ -11,6 +11,8 @@ const TEXTS = {
   NO_PERMISSION:
     "Bot does not have the Manage Channel permission. Please grant it to the bot.",
   SOMETHING_WENT_WRONG: "Something went wrong. Please try again later.",
+  SERVER_OFFLINE: "Server is offline.",
+  SERVER_ONLINE: "Server is online.",
 };
 
 module.exports = TEXTS;

@@ -83,7 +83,7 @@ try {
     commands.set(command.data.name, command);
   }
 } catch (error) {
-  logger.error(error);
+  logger.error("Error while loading commands");
 }
 
 const commandJSON = commands.map((command) => command.data.toJSON());

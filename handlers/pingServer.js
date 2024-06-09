@@ -1,11 +1,14 @@
 const logger = require("../utils/logger");
+const pingMC = require("../utils/pingMC");
 
 const fs = require("fs");
 const path = require("path");
 
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 
 async function pingServer(interaction) {
+  await interaction.channel.sendTyping();
+
   // Localize TEXTS
   const langPath = path.resolve(__dirname, `../lang/${interaction.locale}.js`);
 
@@ -20,16 +23,69 @@ async function pingServer(interaction) {
   const port = interaction.options.getInteger("port");
   const bedrock = interaction.options.getBoolean("bedrock");
 
+  const data = await pingMC(ip, port, bedrock);
+
+  let status;
+  let players;
+  let icon;
+  let motd;
+  let version;
+  let attachment;
+
+  if (data.online) {
+    status = TEXTS.SERVER_ONLINE;
+    players = `${data.players.online}/${data.players.max}`;
+    version = data.version;
+  } else {
+    status = TEXTS.SERVER_OFFLINE;
+    version = "N/A";
+    players = "0/0";
+  }
+
+  const color = data.online ? "#679137" : "#f44336";
+
+  try {
+    motd = data.motd.clean[0];
+  } catch (error) {
+    motd = "No Description";
+  }
+
+  try {
+    attachment = new AttachmentBuilder(
+      Buffer.from(data.icon.substr("data:image/png;base64,".length), "base64"),
+      {
+        name: "thumbnail.png",
+      }
+    );
+    icon = "attachment://thumbnail.png";
+  } catch (error) {
+    icon = "https://i.imgur.com/4qKWXnq.png";
+  }
+
   const embed = new EmbedBuilder()
-    .setColor("#679137")
-    .setTitle("Ping")
-    .setDescription(`Pinged ${ip}:${port}`)
-    .setThumbnail("https://i.imgur.com/4qKWXnq.png")
+    .setColor(color)
+    .setTitle(status)
+    .setDescription(motd)
+    .setFooter({ text: data.hostname })
+    .setThumbnail(icon)
+    .addFields(
+      { name: "Players", value: players },
+      { name: "Version", value: version }
+    )
     .setTimestamp();
 
-  await interaction.editReply({
-    embeds: [embed],
-  });
+  await interaction.deleteReply();
+
+  if (attachment) {
+    await interaction.channel.send({
+      embeds: [embed],
+      files: [attachment],
+    });
+  } else {
+    await interaction.channel.send({
+      embeds: [embed],
+    });
+  }
 
   logger.info(
     `(${interaction.guild.name}) @${interaction.user.username} pinged ${ip}:${port}`
