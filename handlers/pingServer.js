@@ -7,8 +7,6 @@ const path = require("path");
 const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 
 async function pingServer(interaction) {
-  await interaction.channel.sendTyping();
-
   // Localize TEXTS
   const langPath = path.resolve(__dirname, `../lang/${interaction.locale}.js`);
 

@@ -25,7 +25,6 @@ const {
   Routes,
 } = require("discord.js");
 
-const { RateLimiter } = require("discord.js-rate-limiter");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const cron = require("node-cron");
@@ -33,6 +32,7 @@ const cron = require("node-cron");
 const { TOKEN, MONGO_DB_URI, CLIENT_ID } = require("./config.json");
 
 const updateChannel = require("./utils/updateChannel");
+const ifRateLimited = require("./utils/rateLimit");
 
 if (!TOKEN || !CLIENT_ID) {
   logger.error("Bot token or Client ID is not provided in config.json");
@@ -61,9 +61,6 @@ if (MONGO_DB_URI) {
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences],
 });
-
-// Create a new rate limiter with a maximum of 1 request every 2 seconds.
-client.rateLimiter = new RateLimiter(1, 2000);
 
 // Once the client is ready, set the bot's presence.
 client.once(Events.ClientReady, (readyClient) => {
@@ -105,9 +102,18 @@ const rest = new REST({ version: "10" }).setToken(TOKEN);
   }
 })();
 
+// Create a new rate limiter with a maximum of 1 request every 2 seconds.
+const cooldowns = new Collection();
+
 // Handle interactions.
 client.on(Events.InteractionCreate, async (interaction) => {
-  // TODO: Add rate limiter
+  if (ifRateLimited(interaction.user.id, cooldowns)) {
+    await interaction.reply({
+      content: "You are sending commands too quickly. Please slow down.",
+      ephemeral: true,
+    });
+    return;
+  }
 
   if (!interaction.isCommand()) return;
 

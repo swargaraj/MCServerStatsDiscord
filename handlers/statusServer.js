@@ -9,8 +9,6 @@ const Guilds = require("../database/schema");
 const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 
 async function statusServer(interaction) {
-  await interaction.channel.sendTyping();
-
   // Localize TEXTS
   const langPath = path.resolve(__dirname, `../lang/${interaction.locale}.js`);
 
