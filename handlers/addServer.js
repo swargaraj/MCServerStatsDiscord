@@ -1,10 +1,27 @@
 const { ChannelType, PermissionsBitField } = require("discord.js");
+const pingMC = require("../utils/pingMC");
 
 async function addServer(interaction) {
   const Guilds = require("../database/schema");
   const existingServer = await Guilds.findOne({
     guildId: interaction.guildId,
   });
+
+  const ip = interaction.options.getString("ip");
+  const port = interaction.options.getInteger("port");
+  const bedrock = interaction.options.getBoolean("bedrock");
+
+  const data = await pingMC(ip, port, bedrock);
+
+  let status;
+  let players;
+  if (data.online) {
+    status = "Status: Online 🟢";
+    players = `Players: ${data.players.online}/${data.players.max}`;
+  } else {
+    status = "Status: Offline 🔴";
+    players = "Players: N/A";
+  }
 
   if (existingServer) {
     let playersId;
@@ -15,7 +32,7 @@ async function addServer(interaction) {
       statusId = existingServer.statusChannelId;
     } catch (error) {
       const statusChannel = await interaction.guild.channels.create({
-        name: "Status: Offline 🔴",
+        name: status,
         type: ChannelType.GuildVoice,
         permissionOverwrites: [
           {
@@ -38,7 +55,7 @@ async function addServer(interaction) {
       playersId = existingServer.playersChannelId;
     } catch (error) {
       const playersChannel = await interaction.guild.channels.create({
-        name: "Players: 0/40",
+        name: players,
         type: ChannelType.GuildVoice,
         permissionOverwrites: [
           {
@@ -67,7 +84,7 @@ async function addServer(interaction) {
   } else {
     // Create two new channels
     const statusChannel = await interaction.guild.channels.create({
-      name: "Status: Offline 🔴",
+      name: status,
       type: ChannelType.GuildVoice,
       permissionOverwrites: [
         {
@@ -84,7 +101,7 @@ async function addServer(interaction) {
     });
 
     const playersChannel = await interaction.guild.channels.create({
-      name: "Players: 0/40",
+      name: players,
       type: ChannelType.GuildVoice,
       permissionOverwrites: [
         {

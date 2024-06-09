@@ -39,7 +39,7 @@ async function pingServer(interaction) {
   } else {
     status = TEXTS.SERVER_OFFLINE;
     version = "N/A";
-    players = "0/0";
+    players = "N/A";
   }
 
   const color = data.online ? "#679137" : "#f44336";

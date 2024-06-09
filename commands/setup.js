@@ -92,7 +92,7 @@ module.exports = {
           `(${interaction.guild.name}) @${interaction.user.username} added guild to tracking.`
         );
       } catch (error) {
-        await interaction.reply({
+        await interaction.editReply({
           content: TEXTS.ERROR_ADDING_SERVER,
           ephemeral: true,
         });
