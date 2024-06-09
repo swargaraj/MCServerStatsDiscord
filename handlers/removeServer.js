@@ -1,3 +1,5 @@
+const logger = require("../utils/logger");
+
 async function removeServer(interaction) {
   const Guilds = require("../database/schema");
   const existingServer = await Guilds.findOne({
@@ -5,21 +7,28 @@ async function removeServer(interaction) {
   });
 
   if (existingServer) {
-    const channelToDelete = [];
-    if (existingServer.playersId) {
-      channelToDelete.push(existingServer.playersId);
+    try {
+      const playersChannel = await interaction.guild.channels.fetch(
+        existingServer.playersChannelId
+      );
+      await playersChannel.delete();
+    } catch (error) {
+      logger.info(
+        `(${interaction.guild.name}) @${interaction.user.username} tried to delete guild from tracking. Maybe user have already deleted the players channel.`
+      );
     }
-    if (existingServer.statusChannelId) {
-      channelToDelete.push(existingServer.statusChannelId);
+    try {
+      const statusChannel = await interaction.guild.channels.fetch(
+        existingServer.statusChannelId
+      );
+      await statusChannel.delete();
+    } catch (error) {
+      logger.info(
+        `(${interaction.guild.name}) @${interaction.user.username} tried to delete guild from tracking. Maybe user have already deleted the status channel.`
+      );
     }
-    if (channelToDelete.length > 0) {
-      const guild = await interaction.client.guilds.fetch(interaction.guildId);
-      for (const channelId of channelToDelete) {
-        const channel = await guild.channels.fetch(channelId);
-        await channel.delete();
-      }
-    }
-    await existingServer.delete();
+
+    await Guilds.findByIdAndDelete(existingServer._id);
   }
 }
 

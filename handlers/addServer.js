@@ -19,6 +19,12 @@ async function addServer(interaction) {
         type: ChannelType.GuildVoice,
         permissionOverwrites: [
           {
+            id: interaction.client.user.id,
+            allow:
+              PermissionsBitField.Flags.Connect |
+              PermissionsBitField.Flags.ViewChannel,
+          },
+          {
             id: interaction.guild.roles.everyone, // ID of the @everyone role
             deny: PermissionsBitField.Flags.Connect,
           },
@@ -35,6 +41,12 @@ async function addServer(interaction) {
         name: "Players: 0/40",
         type: ChannelType.GuildVoice,
         permissionOverwrites: [
+          {
+            id: interaction.client.user.id,
+            allow:
+              PermissionsBitField.Flags.Connect |
+              PermissionsBitField.Flags.ViewChannel,
+          },
           {
             id: interaction.guild.roles.everyone, // ID of the @everyone role
             deny: PermissionsBitField.Flags.Connect,
@@ -59,6 +71,12 @@ async function addServer(interaction) {
       type: ChannelType.GuildVoice,
       permissionOverwrites: [
         {
+          id: interaction.client.user.id,
+          allow:
+            PermissionsBitField.Flags.Connect |
+            PermissionsBitField.Flags.ViewChannel,
+        },
+        {
           id: interaction.guild.roles.everyone, // ID of the @everyone role
           deny: PermissionsBitField.Flags.Connect,
         },
@@ -69,6 +87,12 @@ async function addServer(interaction) {
       name: "Players: 0/40",
       type: ChannelType.GuildVoice,
       permissionOverwrites: [
+        {
+          id: interaction.client.user.id,
+          allow:
+            PermissionsBitField.Flags.Connect |
+            PermissionsBitField.Flags.ViewChannel,
+        },
         {
           id: interaction.guild.roles.everyone, // ID of the @everyone role
           deny: PermissionsBitField.Flags.Connect,

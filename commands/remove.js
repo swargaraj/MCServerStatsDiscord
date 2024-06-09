@@ -26,9 +26,12 @@ module.exports = {
     }
 
     try {
+      await interaction.deferReply({
+        content: TEXTS.SERVER_REMOVING,
+        ephemeral: true,
+      });
       await removeServer(interaction);
-
-      await interaction.reply({
+      await interaction.editReply({
         content: TEXTS.SERVER_REMOVED,
         ephemeral: true,
       });
@@ -37,14 +40,13 @@ module.exports = {
         `(${interaction.guild.name}) @${interaction.user.username} removed guild from tracking.`
       );
     } catch (error) {
-      logger.error(
-        `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to remove the guild from tracking: ${error.message}`
-      );
-
       await interaction.reply({
         content: TEXTS.ERROR_REMOVING_SERVER,
         ephemeral: true,
       });
+      logger.error(
+        `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to remove the guild from tracking: ${error.message}`
+      );
     }
   },
 };

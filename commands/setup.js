@@ -78,28 +78,28 @@ module.exports = {
 
       // Add server to database
       try {
-
-        // TODO: Use replyDefer instead of arbitary reply
-
-        await interaction.reply({
+        await interaction.deferReply({
+          content: TEXTS.SERVER_TRACKING,
+          ephemeral: true,
+        });
+        await addServer(interaction);
+        await interaction.editReply({
           content: TEXTS.SERVER_TRACKED,
           ephemeral: true,
         });
-
-        await addServer(interaction);
 
         logger.info(
           `(${interaction.guild.name}) @${interaction.user.username} added guild to tracking.`
         );
       } catch (error) {
-        logger.error(
-          `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to add the guild to tracking: ${error.message}`
-        );
-
         await interaction.reply({
           content: TEXTS.ERROR_ADDING_SERVER,
           ephemeral: true,
         });
+
+        logger.error(
+          `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to add the guild to tracking: ${error.message}`
+        );
       }
     }
   },
