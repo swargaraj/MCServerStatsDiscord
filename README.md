@@ -1,7 +1,5 @@
-_Note: This project is still in its alpha stage, and some features may not work as expected. Please be patient as we work on improving and adding new functionalities._
-
 ![minecraft gif stolen from pinterest](https://i.pinimg.com/originals/2d/a1/cf/2da1cfd9dfd56972fc84c73983993713.gif)
-# 👾 [Alpha] Minecraft Server Status Discord Bot
+# 👾 Minecraft Server Status Discord Bot
 Get information of your Minecraft server directly in your Discord server.
 
 ## Features
