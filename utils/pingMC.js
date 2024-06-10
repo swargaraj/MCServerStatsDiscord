@@ -2,8 +2,8 @@ const fetch = require("node-fetch");
 
 async function pingMC(ip, port, bedrock) {
   const url = bedrock
-    ? `https://api.mcsrvstat.us/bedrock/3/${ip}:${port}`
-    : `https://api.mcsrvstat.us/3/${ip}:${port}`;
+    ? `https://api.mcstatus.io/v2/status/bedrock/${ip}:${port}`
+    : `https://api.mcstatus.io/v2/status/java/${ip}:${port}`;
 
   try {
     const response = await fetch(url);

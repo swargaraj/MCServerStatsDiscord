@@ -13,6 +13,7 @@ const TEXTS = {
   SOMETHING_WENT_WRONG: "कुछ गलत हो गया। कृपया बाद में पुन: प्रयास करें।",
   SERVER_OFFLINE: "सर्वर ऑफ़लाइन है।",
   SERVER_ONLINE: "सर्वर ऑनलाइन है।",
+  INVALID_USERNAME: "इस उपयोगकर्ता नाम के साथ कोई प्रोफ़ाइल नहीं मिली '",
 };
 
 module.exports = TEXTS;

@@ -31,7 +31,6 @@ module.exports = {
         .setDescription("Is the server a Bedrock server?")
         .setRequired(true)
     ),
-  cooldown: 5,
   async execute(interaction) {
     // Localize TEXTS
     const langPath = path.resolve(

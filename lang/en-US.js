@@ -13,6 +13,7 @@ const TEXTS = {
   SOMETHING_WENT_WRONG: "Something went wrong. Please try again later.",
   SERVER_OFFLINE: "Server is offline.",
   SERVER_ONLINE: "Server is online.",
+  INVALID_USERNAME: "Couldn't find any profile with username '",
 };
 
 module.exports = TEXTS;

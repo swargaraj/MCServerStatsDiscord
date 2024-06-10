@@ -9,7 +9,6 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("status")
     .setDescription("Status of guild's Minecraft server."),
-  cooldown: 5,
   async execute(interaction) {
     // Localize TEXTS
     const langPath = path.resolve(

@@ -13,6 +13,7 @@ const TEXTS = {
     "Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyin.",
   SERVER_OFFLINE: "Sunucu çevrimdışı.",
   SERVER_ONLINE: "Sunucu çevrimiçi.",
+  INVALID_USERNAME: "Bu kullanıcı adıyla hiçbir profil bulunamadı '",
 };
 
 module.exports = TEXTS;

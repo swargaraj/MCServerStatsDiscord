@@ -10,7 +10,6 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("remove")
     .setDescription("Removes guild from tracking."),
-  cooldown: 5,
   async execute(interaction) {
     // Localize TEXTS
     const langPath = path.resolve(

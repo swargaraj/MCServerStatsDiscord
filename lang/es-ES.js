@@ -14,6 +14,8 @@ const TEXTS = {
     "Algo salió mal. Por favor, inténtalo de nuevo más tarde.",
   SERVER_OFFLINE: "El servidor está fuera de línea.",
   SERVER_ONLINE: "El servidor está en línea.",
+  INVALID_USERNAME:
+    "No se pudo encontrar ningún perfil con el nombre de usuario '",
 };
 
 module.exports = TEXTS;

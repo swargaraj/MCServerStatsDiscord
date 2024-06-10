@@ -4,7 +4,8 @@ Get information of your Minecraft server directly in your Discord server.
 
 ## Features
 - Displays server status and player count in Discord voice channels, updating every 5 minutes.
-- Provides Minecraft server information including using the [MCSrvStat API](https://api.mcsrvstat.us).
+- Provides Minecraft server information including using the [mcstatus.io API](https://mcstatus.io/docs).
+- Provides Minecraft skins using the [mineatar.io API](https://mineatar.io/docs).
 - Multi-lingual Support with auto-detection to provide responses in their language.
 
 ## Commands
@@ -12,6 +13,7 @@ Get information of your Minecraft server directly in your Discord server.
 - ```/remove``` Remove the voice channels that display server info.
 - ```/ping``` Ping a specific Minecraft server to get its information.
 - ```/status``` Ping the guild's default Minecraft server to get its status.
+- ```/skin```  Fetch minecraft skin from username.
 
 ## Installation
 1. Ensure you have [Node.js](https://nodejs.org) and [npm](https://www.npmjs.com/) installed on your machine.

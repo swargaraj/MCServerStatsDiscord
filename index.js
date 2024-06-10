@@ -84,7 +84,7 @@ try {
     commands.set(command.data.name, command);
   }
 } catch (error) {
-  logger.error("Error while loading commands");
+  logger.error("Error while loading commands:", error);
 }
 
 const commandJSON = commands.map((command) => command.data.toJSON());
@@ -128,10 +128,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
   try {
     await command.execute(interaction);
   } catch (error) {
-    console.log(error);
     logger.error(
       `There was an error while executing /${interaction.commandName}.`
     );
+    console.log(error);
     await interaction.reply({
       content: "There was an error while executing this command!",
       ephemeral: true,

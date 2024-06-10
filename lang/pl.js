@@ -13,6 +13,7 @@ const TEXTS = {
   SOMETHING_WENT_WRONG: "Coś poszło nie tak. Spróbuj ponownie później.",
   SERVER_OFFLINE: "Serwer jest offline.",
   SERVER_ONLINE: "Serwer jest online.",
+  INVALID_USERNAME: "Nie można znaleźć żadnego profilu z nazwą użytkownika '",
 };
 
 module.exports = TEXTS;

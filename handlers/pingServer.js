@@ -33,7 +33,7 @@ async function pingServer(interaction) {
   if (data.online) {
     status = TEXTS.SERVER_ONLINE;
     players = `${data.players.online}/${data.players.max}`;
-    version = data.version;
+    version = data.version.name_raw;
   } else {
     status = TEXTS.SERVER_OFFLINE;
     version = "N/A";
@@ -43,7 +43,7 @@ async function pingServer(interaction) {
   const color = data.online ? "#679137" : "#f44336";
 
   try {
-    motd = data.motd.clean[0];
+    motd = data.motd.clean;
   } catch (error) {
     motd = "No Description";
   }
@@ -64,7 +64,7 @@ async function pingServer(interaction) {
     .setColor(color)
     .setTitle(status)
     .setDescription(motd)
-    .setFooter({ text: data.hostname })
+    .setFooter({ text: data.host })
     .setThumbnail(icon)
     .addFields(
       { name: "Players", value: players },

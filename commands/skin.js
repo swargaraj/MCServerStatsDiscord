@@ -1,30 +1,18 @@
 const { SlashCommandBuilder } = require("discord.js");
-const pingServer = require("../handlers/pingServer");
+const skinSearch = require("../handlers/skinSearch.js");
 
-const logger = require("../utils/logger");
+const logger = require("../utils/logger.js");
 const fs = require("fs");
 const path = require("path");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("ping")
-    .setDescription("Ping your Minecraft server.")
+    .setName("skin")
+    .setDescription("Get a player's skin.")
     .addStringOption((option) =>
       option
-        .setName("ip")
-        .setDescription("The IP address of the Minecraft server.")
-        .setRequired(true)
-    )
-    .addIntegerOption((option) =>
-      option
-        .setName("port")
-        .setDescription("The port of the Minecraft server.")
-        .setRequired(true)
-    )
-    .addBooleanOption((option) =>
-      option
-        .setName("bedrock")
-        .setDescription("Is the server a Bedrock server?")
+        .setName("name")
+        .setDescription("The name of the player.")
         .setRequired(true)
     ),
   async execute(interaction) {
@@ -43,13 +31,13 @@ module.exports = {
 
     try {
       await interaction.deferReply();
-      await pingServer(interaction);
+      await skinSearch(interaction);
     } catch (error) {
       await interaction.editReply({
         content: TEXTS.SOMETHING_WENT_WRONG,
       });
       logger.error(
-        `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to ping a server: ${error}`
+        `(${interaction.guild.name}) @${interaction.user.username} encountered an error while trying to search for skin: ${error}`
       );
     }
   },

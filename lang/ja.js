@@ -14,6 +14,7 @@ const TEXTS = {
     "何かがうまくいきませんでした。後でもう一度やり直してください。",
   SERVER_OFFLINE: "サーバーはオフラインです。",
   SERVER_ONLINE: "サーバーはオンラインです。",
+  INVALID_USERNAME: "ユーザー名が「」のプロファイルが見つかりませんでした",
 };
 
 module.exports = TEXTS;

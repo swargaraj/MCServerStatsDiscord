@@ -17,6 +17,7 @@ const TEXTS = {
     "Qualcosa è andato storto. Si prega di riprovare più tardi.",
   SERVER_OFFLINE: "Il server è offline.",
   SERVER_ONLINE: "Il server è online.",
+  INVALID_USERNAME: "Impossibile trovare un profilo con il nome utente '",
 };
 
 module.exports = TEXTS;

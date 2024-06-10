@@ -15,6 +15,7 @@ const TEXTS = {
   SOMETHING_WENT_WRONG: "Er is iets misgegaan. Probeer het later opnieuw.",
   SERVER_OFFLINE: "Server is offline.",
   SERVER_ONLINE: "Server is online.",
+  INVALID_USERNAME: "Kon geen profiel vinden met de gebruikersnaam '",
 };
 
 module.exports = TEXTS;
