@@ -10,6 +10,7 @@ async function pingMC(ip, port, bedrock) {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
+      throw error;
     }
     const data = await response.json();
     return data;
