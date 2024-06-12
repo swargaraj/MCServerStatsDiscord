@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const logger = require("./logger");
 
 async function pingMC(ip, port, bedrock) {
   const url = bedrock
@@ -13,7 +14,7 @@ async function pingMC(ip, port, bedrock) {
     const data = await response.json();
     return data;
   } catch (error) {
-    log.error("Error fetching server details:", error);
+    logger.error("Error fetching server details:", error);
     throw error;
   }
 }
