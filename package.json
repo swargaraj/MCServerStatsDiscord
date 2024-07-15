@@ -15,7 +15,7 @@
     "mongoose": "^8.4.5",
     "node-cron": "^3.0.3",
     "node-fetch": "^2.7.0",
-    "winston": "^3.13.0",
+    "winston": "^3.13.1",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
