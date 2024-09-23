@@ -19,6 +19,6 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
-    "eslint": "^9.10.0"
+    "eslint": "^9.11.0"
   }
 }
